@@ -32,7 +32,8 @@ const appRoutes: Routes = [
     AdminPanelComponent,
     AddResultComponent,
     PageNotFoundComponent,
-    LeagueTableComponent
+    LeagueTableComponent,
+    RouterModule
   ],
   imports: [
     BrowserModule,
@@ -45,6 +46,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
+  exports: [RouterModule],
   providers: [],
   bootstrap: [AppComponent]
 })
