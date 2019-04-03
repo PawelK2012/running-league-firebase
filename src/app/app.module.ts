@@ -8,12 +8,16 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+
 import { LoginComponent } from './authentication/login/login.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { AddResultComponent } from './admin/add-result/add-result.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LeagueTableComponent } from './league/league-table/league-table.component';
+
+import { TableDataService } from './services/table/table-data.service';
+
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -32,8 +36,7 @@ const appRoutes: Routes = [
     AdminPanelComponent,
     AddResultComponent,
     PageNotFoundComponent,
-    LeagueTableComponent,
-    RouterModule
+    LeagueTableComponent
   ],
   imports: [
     BrowserModule,
@@ -46,8 +49,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  exports: [RouterModule],
-  providers: [],
+  providers: [TableDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
