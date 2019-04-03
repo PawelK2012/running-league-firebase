@@ -1,4 +1,5 @@
 sudo: required
+dist: xenial
 addons:
   chrome: stable
 
@@ -14,5 +15,5 @@ before_script:
   - npm install -g @angular/cli
 
 script:
-  - ng build --prod --aot
+  - ng lint
   - ng test
