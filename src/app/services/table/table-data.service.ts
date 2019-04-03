@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
-  AngularFirestoreCollection,
-  AngularFirestoreDocument
+  AngularFirestoreCollection
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Item } from '../../models/Items';
-import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

@@ -22,5 +22,4 @@ export class MockTableDataService {
       json: () => this.strings
     });
   }
-
 }
