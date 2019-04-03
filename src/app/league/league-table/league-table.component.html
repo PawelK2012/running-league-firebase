@@ -1,3 +1,12 @@
-<p>
-  league-table works!
-</p>
+<h1>PRCI Running League</h1>
+
+<div *ngIf="items?.length>0; noItems">
+<ul *ngFor="let item of items">
+  <li>{{item.title}}: <strong>{{item.description}}</strong></li>
+</ul>
+</div>
+
+<ng-template #noItems>
+  <hr>
+  <h1>No items available</h1>
+</ng-template>

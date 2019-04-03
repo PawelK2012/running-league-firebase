@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { LeagueTableComponent } from './league-table.component';
+import { TableDataService } from '../../services/table/table-data.service';
+import { MockTableDataService } from '../../../test/mock-table-data-service';
 
 describe('LeagueTableComponent', () => {
   let component: LeagueTableComponent;
@@ -8,7 +9,10 @@ describe('LeagueTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LeagueTableComponent ]
+      declarations: [ LeagueTableComponent ],
+      providers: [
+        { provide: TableDataService, useClass: MockTableDataService }
+      ]
     })
     .compileComponents();
   }));
