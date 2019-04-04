@@ -123,5 +123,10 @@
       }
     }
   },
-  "defaultProject": "running-league-firebase"
+  "defaultProject": "running-league-firebase",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
