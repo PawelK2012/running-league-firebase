@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TableDataService } from '../../services/table/table-data.service';
-import { Item } from '../../models/Items';
+import { TableDataService } from '../../../services/table/table-data.service';
+import { Item } from '../../../models/Items';
 
 @Component({
   selector: 'app-league-table',
