@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LeagueTableComponent } from './league-table.component';
-import { TableDataService } from '../../services/table/table-data.service';
-import { MockTableDataService } from '../../../test/mock-table-data-service';
+import { TableDataService } from '../../../services/table/table-data.service';
+import { MockTableDataService } from '../../../../test/mock-table-data-service';
 
 describe('LeagueTableComponent', () => {
   let component: LeagueTableComponent;
