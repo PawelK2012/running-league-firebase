@@ -17,6 +17,10 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { LeagueTableComponent } from './components/league/league-table/league-table.component';
 
 import { TableDataService } from './services/table/table-data.service';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule, MatSortModule } from '@angular/material';
 
 
 const appRoutes: Routes = [
@@ -36,7 +40,8 @@ const appRoutes: Routes = [
     AdminPanelComponent,
     AddResultComponent,
     PageNotFoundComponent,
-    LeagueTableComponent
+    LeagueTableComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +52,10 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
-    )
+    ),
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatSortModule
   ],
   providers: [TableDataService],
   bootstrap: [AppComponent]
