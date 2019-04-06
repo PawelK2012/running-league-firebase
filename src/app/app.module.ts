@@ -9,6 +9,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
+
 import { LoginComponent } from './components/authentication/login/login.component';
 import { RegisterComponent } from './components/authentication/register/register.component';
 import { AdminPanelComponent } from './components/admin/admin-panel/admin-panel.component';
@@ -20,7 +21,7 @@ import { TableDataService } from './services/table/table-data.service';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule, MatSortModule } from '@angular/material';
+import { MaterialModule } from './material';
 
 
 const appRoutes: Routes = [
@@ -54,8 +55,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     ),
     BrowserAnimationsModule,
-    MatTableModule,
-    MatSortModule
+    MaterialModule
   ],
   providers: [TableDataService],
   bootstrap: [AppComponent]
