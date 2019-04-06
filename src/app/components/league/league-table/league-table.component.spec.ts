@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LeagueTableComponent } from './league-table.component';
 import { TableDataService } from '../../../services/table/table-data.service';
 import { MockTableDataService } from '../../../../test/mock-table-data-service';
+import { MatTableModule } from '@angular/material';
 
 describe('LeagueTableComponent', () => {
   let component: LeagueTableComponent;
@@ -9,6 +10,7 @@ describe('LeagueTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ MatTableModule ],
       declarations: [ LeagueTableComponent ],
       providers: [
         { provide: TableDataService, useClass: MockTableDataService }

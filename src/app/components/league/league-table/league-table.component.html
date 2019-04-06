@@ -10,7 +10,7 @@
   <hr>
   <h1>No items available</h1>
 </ng-template> -->
-<div class="order-actions"></div>
+<div class="example-container mat-elevation-z8">
 <table mat-table [dataSource]="dataSource">
 
     <!-- Position Column -->
@@ -40,3 +40,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+</div>
