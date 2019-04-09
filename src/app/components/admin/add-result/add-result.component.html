@@ -1,3 +1,11 @@
-<p>
-  add-result works!
-</p>
+<div>
+  <p>Add item::</p>
+  <form (ngSubmit)="onSubmit()">
+    <label>Title: </label>
+    <input type="text" name="title" [(ngModel)]="item.title">
+    <br>
+    <label>Description: </label>
+    <textarea rows="4" cols="50" name="description" [(ngModel)]="item.description"></textarea>
+    <input type="submit">
+  </form>
+</div>

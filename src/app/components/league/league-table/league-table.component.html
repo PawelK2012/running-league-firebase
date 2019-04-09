@@ -1,15 +1,13 @@
-<!-- <h1>PRCI Running League</h1>
-
 <div *ngIf="items?.length>0; noItems">
 <ul *ngFor="let item of items">
-  <li>{{item.title}}: <strong>{{item.description}}</strong></li>
+  <li>{{item.title}}: <strong>{{item.description}}</strong> || <span (click)="deleteResult(item)">Delete</span></li>
 </ul>
 </div>
 
 <ng-template #noItems>
   <hr>
   <h1>No items available</h1>
-</ng-template> -->
+</ng-template>
 <div class="example-container mat-elevation-z8">
 <table mat-table [dataSource]="dataSource">
 
