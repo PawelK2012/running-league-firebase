@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
-  AngularFirestoreCollection
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,6 +15,7 @@ export class TableDataService {
 
   itemsCollection: AngularFirestoreCollection<Item>;
   items: Observable<Item[]>;
+  itemDoc: AngularFirestoreDocument<Item>;
 
   constructor(public afs: AngularFirestore) {
     // this.items = this.afs.collection('items').valueChanges();
@@ -25,7 +27,7 @@ export class TableDataService {
     //   });
     // });
 
-    this.itemsCollection = afs.collection<Item>('items');
+    this.itemsCollection = afs.collection<Item>('items', ref => ref.orderBy('title', 'asc'));
 
     this.items = this.itemsCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -39,6 +41,15 @@ export class TableDataService {
 
   getItems() {
     return this.items;
+  }
+
+  addResutls (item: Item) {
+    this.itemsCollection.add(item);
+  }
+
+  deleteResult(item: Item) {
+    this.itemDoc = this.afs.doc(`items/${item.id}`);
+    this.itemDoc.delete();
   }
 
 //   getItems(): Observable<any[]> {

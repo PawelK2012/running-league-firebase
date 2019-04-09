@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TableDataService } from '../../../services/table/table-data.service';
+import { Item } from '../../../models/Items';
 
 @Component({
   selector: 'app-add-result',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddResultComponent implements OnInit {
 
-  constructor() { }
+  item: Item = {
+    title: '',
+    description: ''
+  };
+
+  constructor( private tableDataService: TableDataService) { }
 
   ngOnInit() {
   }
+
+  onSubmit() {
+    if (this.item.title !== '' && this.item.description !== '') {
+      this.tableDataService.addResutls(this.item);
+      this.item.title = '';
+      this.item.description = '';
+    }
+  }
+
 
 }

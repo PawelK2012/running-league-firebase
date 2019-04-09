@@ -52,13 +52,17 @@ export class LeagueTableComponent implements OnInit {
   constructor(private tableDataService: TableDataService) { }
 
   ngOnInit() {
-    // this.tableDataService.getItems().subscribe(items => {
-    //    // const str = JSON.stringify(items, null, 4);
-    //    console.log(items);
-    //    this.items = items;
-    // });
-
+    this.tableDataService.getItems().subscribe(items => {
+       // const str = JSON.stringify(items, null, 4);
+       console.log(items);
+       this.items = items;
+    });
     // this.dataSource.sort  = this.sort;
+  }
+
+  deleteResult(item) {
+    console.log('delete result');
+    this.tableDataService.deleteResult(item);
   }
 
 }
