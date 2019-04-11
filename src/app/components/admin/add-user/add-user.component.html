@@ -1,0 +1,15 @@
+<div>
+  <p>Add user::</p>
+  <form (ngSubmit)="onSubmit()">
+    <label>User Name: </label>
+    <input type="text" name="userName" [(ngModel)]="user.userName">
+    <label>Email: </label>
+    <input type="text" name="email" [(ngModel)]="user.email">
+    <input type="submit">
+  </form>
+</div>
+<hr>
+<h1>List of all available users:</h1>
+<ul>
+  <li *ngFor="let user of this.users">uid:: <strong>{{user.id}}</strong> {{user.userName}} | <span (click)="deleteUser(user)">delete</span></li>
+</ul>

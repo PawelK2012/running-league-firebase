@@ -2,15 +2,12 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
-// import { auth } from 'firebase/app';
 import {
   AngularFirestore,
   AngularFirestoreDocument
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 import { User } from '../../models/User';
-import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -50,11 +47,12 @@ export class AuthService {
   }
 
   public updateUserData(user) {
+    // old ref `users/${user.user.uid}`
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.user.uid}`
     );
     const data: User = {
-      uid: user.user.uid,
+      // id: user.user.uid,
       email: user.user.email,
       roles: 'subscriber'
       // roles: {

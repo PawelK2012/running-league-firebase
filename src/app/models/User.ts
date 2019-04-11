@@ -5,8 +5,10 @@ export interface Roles {
 }
 
 export interface User {
-  uid: string;
+  id?: string;
   email?: string;
+  userName?: string;
   roles?: string;
+  superAdmin?: boolean;
+  listOfRuns?: string[];
 }
-

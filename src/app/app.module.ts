@@ -17,6 +17,7 @@ import { AdminPanelComponent } from './components/admin/admin-panel/admin-panel.
 import { AddResultComponent } from './components/admin/add-result/add-result.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { LeagueTableComponent } from './components/league/league-table/league-table.component';
+import { AddUserComponent } from './components/admin/add-user/add-user.component';
 
 import { TableDataService } from './services/table/table-data.service';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
   { path: 'admin', component: AdminPanelComponent },
   { path: 'add-result', component: AddResultComponent },
   { path: 'league-table', component: LeagueTableComponent },
+  { path: 'add-user', component: AddUserComponent },
   { path: '', redirectTo: '/league-table', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -43,7 +45,8 @@ const appRoutes: Routes = [
     AddResultComponent,
     PageNotFoundComponent,
     LeagueTableComponent,
-    NavBarComponent
+    NavBarComponent,
+    AddUserComponent
   ],
   imports: [
     BrowserModule,
