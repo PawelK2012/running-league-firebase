@@ -11,5 +11,5 @@
 <hr>
 <h1>List of all available users:</h1>
 <ul>
-  <li *ngFor="let user of this.users">uid:: <strong>{{user.id}}</strong> {{user.userName}} | <span (click)="deleteUser(user)">delete</span></li>
+  <li *ngFor="let user of this.users | async">uid:: <strong>{{ user.id }}</strong> {{user.userName }} | <span (click)="deleteUser(user)">delete</span></li>
 </ul>

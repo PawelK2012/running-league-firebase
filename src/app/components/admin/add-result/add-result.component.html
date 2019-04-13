@@ -9,3 +9,6 @@
     <input type="submit">
   </form>
 </div>
+<ul>
+<li *ngFor="let user of users | async">{{user.userName}}</li>
+</ul>
