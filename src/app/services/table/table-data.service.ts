@@ -18,25 +18,17 @@ export class TableDataService {
   itemDoc: AngularFirestoreDocument<Item>;
 
   constructor(public afs: AngularFirestore) {
-    // this.items = this.afs.collection('items').valueChanges();
-    // this.items = this.afs.collection('items').snapshotChanges().map(changes => {
-    //   return changes.map(a => {
-    //     const data = a.payload.doc.data() as Item;
-    //     data.id = a.payload.doc.id;
-    //     return data;
-    //   });
-    // });
 
     this.itemsCollection = afs.collection<Item>('items', ref => ref.orderBy('title', 'asc'));
 
-    this.items = this.itemsCollection.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as Item;
-        const id = a.payload.doc.id;
-        console.log(id);
-        return { id, ...data };
-      }))
-    );
+    // this.items = this.itemsCollection.snapshotChanges().pipe(
+    //   map(actions => actions.map(a => {
+    //     const data = a.payload.doc.data() as Item;
+    //     const id = a.payload.doc.id;
+    //     console.log(id);
+    //     return { id, ...data };
+    //   }))
+    // );
   }
 
   getItems() {

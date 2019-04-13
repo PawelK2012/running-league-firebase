@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { TableDataService } from '../../../services/table/table-data.service';
 import { Item } from '../../../models/Items';
-import { UserService } from 'src/app/services/user/user.service';
 import { User } from '../../../models/User';
 
 @Component({
@@ -11,22 +13,32 @@ import { User } from '../../../models/User';
 })
 export class AddResultComponent implements OnInit {
 
-  users: User[];
+  usersCollection: AngularFirestoreCollection<User>;
+  users: Observable<User[]>;
   item: Item = {
     title: '',
     description: ''
   };
 
+  constructor(private tableDataService: TableDataService,
+    private readonly afs: AngularFirestore) {
+    this.usersCollection = afs.collection<User>('users', ref => ref.orderBy('userName', 'asc'));
 
-  constructor( private tableDataService: TableDataService,
-    private userService: UserService) { }
+    this.users = this.usersCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as User;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
+  }
 
   ngOnInit() {
-    this.userService.getUsers().subscribe(users => {
-      // const str = JSON.stringify(items, null, 4);
-      console.log('AddResultComponent:: ', users);
-      this.users = users;
-   });
+    // Old way with subscribe() to service
+    //   this.userService.getUsers().subscribe(users => {
+    //     console.log('AddResultComponent:: ', users);
+    //     this.users = users;
+    //  });
   }
 
   onSubmit() {
@@ -36,6 +48,4 @@ export class AddResultComponent implements OnInit {
       this.item.description = '';
     }
   }
-
-
 }

@@ -1,5 +1,5 @@
-<div *ngIf="items?.length>0; noItems">
-<ul *ngFor="let item of items">
+<div *ngIf="items; noItems">
+<ul *ngFor="let item of items | async">
   <li>{{item.title}}: <strong>{{item.description}}</strong> || <span (click)="deleteResult(item)">Delete</span></li>
 </ul>
 </div>

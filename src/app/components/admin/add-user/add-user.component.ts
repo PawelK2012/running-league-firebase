@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { User } from '../../../models/User';
 import { UserService } from '../../../services/user/user.service';
+
 
 @Component({
   selector: 'app-add-user',
@@ -8,8 +12,9 @@ import { UserService } from '../../../services/user/user.service';
   styleUrls: ['./add-user.component.scss']
 })
 export class AddUserComponent implements OnInit {
+  usersCollection: AngularFirestoreCollection<User>;
+  users: Observable<User[]>;
 
-  users: User[];
   user: User = {
     email: '',
     userName: '',
@@ -18,25 +23,37 @@ export class AddUserComponent implements OnInit {
     listOfRuns: []
   };
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+    private readonly afs: AngularFirestore) {
 
-  ngOnInit() {
-    this.userService.getUsers().subscribe(users => {
-      // const str = JSON.stringify(items, null, 4);
-      this.users = users;
-   });
+    this.usersCollection = afs.collection<User>('users', ref => ref.orderBy('userName', 'asc'));
+
+    this.users = this.usersCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as User;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
   }
+
+  ngOnInit() { }
 
   onSubmit() {
     if (this.user.userName !== '') {
+      // to create id use:: doc(myId).set({})
       this.userService.addUser(this.user);
       this.user.userName = '';
+      this.user.email = '';
     }
   }
 
   deleteUser(user) {
-    console.log('delete USER');
-    this.userService.deleteUser(user);
+    const response = confirm('Are you sure you want to delete this user?');
+    if (response) {
+      this.userService.deleteUser(user);
+    }
+    return;
   }
 
 }

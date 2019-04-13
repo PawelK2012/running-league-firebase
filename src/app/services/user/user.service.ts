@@ -7,6 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../../models/User';
+export interface UserId extends User { id: string; }
 
 @Injectable({
   providedIn: 'root'
@@ -17,18 +18,19 @@ export class UserService {
   users: Observable<User[]>;
   userDoc: AngularFirestoreDocument<User>;
 
-
   constructor(public afs: AngularFirestore) {
+    // we dont see all user because this.usersCollection filters by userName
+    /// and user that come from auth service dont have userName
     this.usersCollection = afs.collection<User>('users', ref => ref.orderBy('userName', 'asc'));
 
-    this.users = this.usersCollection.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as User;
-        const id = a.payload.doc.id;
-        console.log(id);
-        return { id, ...data };
-      }))
-    );
+    // this.users = this.usersCollection.snapshotChanges().pipe(
+    //   map(actions => actions.map(a => {
+    //     const data = a.payload.doc.data() as User;
+    //     const id = a.payload.doc.id;
+    //     console.log(id);
+    //     return { id, ...data };
+    //   }))
+    // );
   }
 
   addUser (user: User) {
