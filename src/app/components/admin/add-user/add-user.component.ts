@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../../../models/User';
@@ -12,6 +14,11 @@ import { UserService } from '../../../services/user/user.service';
   styleUrls: ['./add-user.component.scss']
 })
 export class AddUserComponent implements OnInit {
+  addUserForm = new FormGroup({
+    email: new FormControl(''),
+    userName: new FormControl(''),
+  });
+
   usersCollection: AngularFirestoreCollection<User>;
   users: Observable<User[]>;
 
@@ -24,7 +31,8 @@ export class AddUserComponent implements OnInit {
   };
 
   constructor(private userService: UserService,
-    private readonly afs: AngularFirestore) {
+    private readonly afs: AngularFirestore,
+    private snackBar: MatSnackBar) {
 
     this.usersCollection = afs.collection<User>('users', ref => ref.orderBy('userName', 'asc'));
 
@@ -40,11 +48,13 @@ export class AddUserComponent implements OnInit {
   ngOnInit() { }
 
   onSubmit() {
-    if (this.user.userName !== '') {
-      // to create id use:: doc(myId).set({})
-      this.userService.addUser(this.user);
-      this.user.userName = '';
-      this.user.email = '';
+    try {
+      this.userService.addUser(this.addUserForm.value);
+      this.addUserForm.reset();
+      this.openSnackBar('User added to data base', 'Close');
+    } catch (error) {
+      console.log(error);
+      this.openSnackBar(error, 'Close');
     }
   }
 
@@ -56,4 +66,10 @@ export class AddUserComponent implements OnInit {
     return;
   }
 
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+    });
+  }
 }
+
