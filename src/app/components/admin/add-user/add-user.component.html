@@ -1,15 +1,20 @@
-<div>
-  <p>Add user::</p>
-  <form (ngSubmit)="onSubmit()">
-    <label>User Name: </label>
-    <input type="text" name="userName" [(ngModel)]="user.userName">
-    <label>Email: </label>
-    <input type="text" name="email" [(ngModel)]="user.email">
-    <input type="submit">
+<div class="add-user-container">
+  <h2>Add new user::</h2>
+  <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input matInput placeholder="User Name" formControlName="userName" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Email" formControlName="email" required>
+    </mat-form-field>
+    <button mat-flat-button color="primary"class="float-right" [disabled]="!addUserForm.valid" type="submit">Submit</button>
   </form>
 </div>
-<hr>
-<h1>List of all available users:</h1>
-<ul>
-  <li *ngFor="let user of this.users | async">uid:: <strong>{{ user.id }}</strong> {{user.userName }} | <span (click)="deleteUser(user)">delete</span></li>
-</ul>
+<h2>List of all available users:</h2>
+<mat-list>
+  <mat-list-item *ngFor="let user of this.users | async">User: <strong class="list-text">{{ user.userName }}</strong> | Email:
+    <strong class="list-text">{{ user.email }}</strong>
+    <mat-icon class="icon-to-right" (click)="deleteUser(user)">delete</mat-icon>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+</mat-list>

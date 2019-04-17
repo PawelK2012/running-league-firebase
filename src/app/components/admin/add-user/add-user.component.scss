@@ -1,0 +1,16 @@
+.add-user-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-user-container > * {
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.list-text {
+  padding: 0 5px;
+}
