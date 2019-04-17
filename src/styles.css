@@ -5,15 +5,3 @@ body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
-.float-right {
-  float: right;
-}
-.icon-to-right {
-  right: 0px;
-  position: absolute;
-  cursor: pointer;
-}
-
-.icon-to-right:hover {
-  color: #D8D8D8;
-}
