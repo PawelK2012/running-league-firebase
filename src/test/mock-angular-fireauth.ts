@@ -1,4 +1,4 @@
-export class MockAngularFireauth{
+export class MockAngularFireauth {
   private users;
 
   constructor() {

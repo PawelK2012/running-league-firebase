@@ -5,21 +5,23 @@ import {
   AngularFirestoreDocument
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+// import { map } from 'rxjs/operators';
 import { Item } from '../../models/Items';
+import { Run } from '../../models/Run';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TableDataService {
 
-  itemsCollection: AngularFirestoreCollection<Item>;
-  items: Observable<Item[]>;
-  itemDoc: AngularFirestoreDocument<Item>;
+  runsCollection: AngularFirestoreCollection<Run>;
+  runs: Observable<Run[]>;
+  run: AngularFirestoreDocument<Run>;
 
   constructor(public afs: AngularFirestore) {
 
-    this.itemsCollection = afs.collection<Item>('items', ref => ref.orderBy('title', 'asc'));
+    // this.itemsCollection = afs.collection<Item>('items', ref => ref.orderBy('title', 'asc'));
+    this.runsCollection = afs.collection<Run>('runs', ref => ref.orderBy('userName', 'asc'));
 
     // this.items = this.itemsCollection.snapshotChanges().pipe(
     //   map(actions => actions.map(a => {
@@ -32,16 +34,17 @@ export class TableDataService {
   }
 
   getItems() {
-    return this.items;
+    // return this.items;
   }
 
-  addResutls (item: Item) {
-    this.itemsCollection.add(item);
+  addRun (run: Run) {
+    console.log(run);
+    this.runsCollection.add(run);
   }
 
-  deleteResult(item: Item) {
-    this.itemDoc = this.afs.doc(`items/${item.id}`);
-    this.itemDoc.delete();
+  deleteRun(run: Run) {
+    // this.itemDoc = this.afs.doc(`items/${item.id}`);
+    // this.itemDoc.delete();
   }
 
 //   getItems(): Observable<any[]> {
