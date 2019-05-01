@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 // import { map } from 'rxjs/operators';
 import { Item } from '../../models/Items';
 import { Run } from '../../models/Run';
+import { UserService } from '../../services/user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class TableDataService {
   runs: Observable<Run[]>;
   run: AngularFirestoreDocument<Run>;
 
-  constructor(public afs: AngularFirestore) {
+  constructor(public afs: AngularFirestore,
+              public userService: UserService) {
 
     // this.itemsCollection = afs.collection<Item>('items', ref => ref.orderBy('title', 'asc'));
     this.runsCollection = afs.collection<Run>('runs', ref => ref.orderBy('userName', 'asc'));
@@ -39,6 +41,7 @@ export class TableDataService {
 
   addRun (run: Run) {
     console.log(run);
+    this.userService.updateUsetPoints(run.distance, run.user  );
     this.runsCollection.add(run);
   }
 

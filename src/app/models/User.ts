@@ -11,4 +11,5 @@ export interface User {
   roles?: string;
   superAdmin?: boolean;
   listOfRuns?: string[];
+  points?: number;
 }

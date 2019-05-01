@@ -25,12 +25,11 @@ export class AddResultComponent implements OnInit {
 
   run: Run = {
     id: '',
-    userId: '',
-    userName: '',
     runName: '',
     distance: '',
     time: '',
     date: '',
+    user: []
   };
 
   constructor(private tableDataService: TableDataService,
