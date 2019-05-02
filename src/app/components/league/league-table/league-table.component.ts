@@ -79,7 +79,7 @@ export class LeagueTableComponent implements OnInit {
 
   deleteResult(item) {
     console.log('delete result');
-    this.tableDataService.deleteResult(item);
+    // this.tableDataService.deleteResult(item);
   }
 }
 

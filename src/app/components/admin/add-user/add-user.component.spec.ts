@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule, MatIconModule, MatDividerModule, MatListModule } from '@angular/material';
 import { AddUserComponent } from './add-user.component';
+import { MockAngularFirestore } from '../../../../test/mock-angular-firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 describe('AddUserComponent', () => {
   let component: AddUserComponent;
@@ -8,7 +11,11 @@ describe('AddUserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddUserComponent ]
+      declarations: [ AddUserComponent ],
+      providers: [
+        { provide: AngularFirestore, useClass: MockAngularFirestore }
+      ],
+      imports: [ReactiveFormsModule, MatFormFieldModule, MatIconModule, MatDividerModule, MatListModule]
     })
     .compileComponents();
   }));

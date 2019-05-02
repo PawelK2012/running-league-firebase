@@ -15,7 +15,7 @@ import { UserService } from '../../../services/user/user.service';
 })
 export class AddUserComponent implements OnInit {
   addUserForm = new FormGroup({
-    email: new FormControl(''),
+    // email: new FormControl(''),
     userName: new FormControl(''),
   });
 

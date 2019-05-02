@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LeagueTableComponent } from './league-table.component';
 import { TableDataService } from '../../../services/table/table-data.service';
 import { MockTableDataService } from '../../../../test/mock-table-data-service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { MockAngularFirestore } from '../../../../test/mock-angular-firestore';
 import { MatTableModule } from '@angular/material';
 
 describe('LeagueTableComponent', () => {
@@ -13,7 +15,8 @@ describe('LeagueTableComponent', () => {
       imports: [ MatTableModule ],
       declarations: [ LeagueTableComponent ],
       providers: [
-        { provide: TableDataService, useClass: MockTableDataService }
+        { provide: TableDataService, useClass: MockTableDataService },
+        { provide: AngularFirestore, useClass: MockAngularFirestore }
       ]
     })
     .compileComponents();

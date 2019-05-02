@@ -1,19 +1,15 @@
 <div class="add-user-container">
-  <h2>Add new user::</h2>
+  <h2>Add new runner</h2>
   <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <input matInput placeholder="User Name" formControlName="userName" required>
     </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Email" formControlName="email" required>
-    </mat-form-field>
-    <button mat-flat-button color="primary"class="float-right" [disabled]="!addUserForm.valid" type="submit">Submit</button>
+    <button mat-flat-button color="primary" class="float-right" [disabled]="!addUserForm.valid" type="submit">Submit</button>
   </form>
 </div>
-<h2>List of all available users:</h2>
+<h2>List of all available runners:</h2>
 <mat-list>
-  <mat-list-item *ngFor="let user of this.users | async">User: <strong class="list-text">{{ user.userName }}</strong> | Email:
-    <strong class="list-text">{{ user.email }}</strong>
+  <mat-list-item *ngFor="let user of this.users | async">User: <strong class="list-text">{{ user.userName }}</strong>
     <mat-icon class="icon-to-right" (click)="deleteUser(user)">delete</mat-icon>
     <mat-divider></mat-divider>
   </mat-list-item>

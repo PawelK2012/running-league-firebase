@@ -2,22 +2,35 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { FormControl, FormGroup } from '@angular/forms';
 import { TableDataService } from '../../../services/table/table-data.service';
-import { Item } from '../../../models/Items';
+import { Run } from '../../../models/Run';
 import { User } from '../../../models/User';
 
 @Component({
   selector: 'app-add-result',
   templateUrl: './add-result.component.html',
-  styleUrls: ['./add-result.component.css']
+  styleUrls: ['./add-result.component.scss']
 })
 export class AddResultComponent implements OnInit {
 
+  addResultForm = new FormGroup({
+    user: new FormControl(''),
+    runName: new FormControl(''),
+    distance: new FormControl(''),
+    time: new FormControl('')
+  });
   usersCollection: AngularFirestoreCollection<User>;
   users: Observable<User[]>;
-  item: Item = {
-    title: '',
-    description: ''
+
+  run: Run = {
+    id: '',
+    userId: '',
+    userName: '',
+    runName: '',
+    distance: '',
+    time: '',
+    date: '',
   };
 
   constructor(private tableDataService: TableDataService,
@@ -42,10 +55,7 @@ export class AddResultComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.item.title !== '' && this.item.description !== '') {
-      this.tableDataService.addResutls(this.item);
-      this.item.title = '';
-      this.item.description = '';
-    }
+    this.tableDataService.addRun(this.addResultForm.value);
+    this.addResultForm.reset();
   }
 }
