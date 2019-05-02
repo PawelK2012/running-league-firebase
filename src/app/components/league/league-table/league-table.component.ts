@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TableDataService } from '../../../services/table/table-data.service';
 import { Item } from '../../../models/Items';
+import { Run } from '../../../models/Run';
 import { MatTableModule, MatSortModule, MatSort } from '@angular/material';
 
 const ELEMENT_DATA: PeriodicElement[] = [
@@ -50,29 +51,73 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class LeagueTableComponent implements OnInit {
   itemsCollection: AngularFirestoreCollection<Item>;
   items: Observable<Item[]>;
+
+  runsCollection: AngularFirestoreCollection<Run>;
+  runs: Observable<Run[]>;
+
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
 
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private tableDataService: TableDataService,
+    // private tableDataService: TableDataService,
     private readonly afs: AngularFirestore
   ) {
-    this.itemsCollection = afs.collection<Item>('items', ref =>
-      ref.orderBy('title', 'asc')
-    );
 
-    this.items = this.itemsCollection.snapshotChanges().pipe(
+    // this.runsCollection =
+    // this.afs.collection('runs').valueChanges().subscribe(val => console.log(val));
+    // this.xxx = this.afs.collection('runs', ref => ref.where('runName', '==', 'just run'));
+    // console.log(this.xxx);
+
+    this.runsCollection = afs.collection<Run>('runs', ref =>
+      ref.orderBy('runName', 'asc')
+    );
+    // console.log(this.runsCollection);
+
+    this.runs = this.runsCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {
-          const data = a.payload.doc.data() as Item;
+          console.log('actions xxx', actions);
+          const data = a.payload.doc.data() as Run;
           const id = a.payload.doc.id;
           console.log(id);
           return { id, ...data };
         })
       )
     );
+
+    // this.runsCollection = afs.collection<Run>('runs', ref =>
+    //   ref.orderBy('runName', 'asc')
+    // );
+    // // console.log(this.runsCollection);
+
+    // this.runs = this.runsCollection.snapshotChanges().pipe(
+    //   map(actions =>
+    //     actions.map(a => {
+    //       console.log('actions', actions);
+    //       const data = a.payload.doc.data() as Run;
+    //       const id = a.payload.doc.id;
+    //       console.log(id);
+    //       return { id, ...data };
+    //     })
+    //   )
+    // );
+
+    // this.itemsCollection = afs.collection<Item>('items', ref =>
+    //   ref.orderBy('title', 'asc')
+    // );
+
+    // this.items = this.itemsCollection.snapshotChanges().pipe(
+    //   map(actions =>
+    //     actions.map(a => {
+    //       const data = a.payload.doc.data() as Item;
+    //       const id = a.payload.doc.id;
+    //       console.log(id);
+    //       return { id, ...data };
+    //     })
+    //   )
+    // );
   }
 
   ngOnInit() { }

@@ -42,8 +42,11 @@ export class UserService {
   }
 
   deleteUser(user: User) {
-   // `users/${user.id}`
     this.userDoc = this.afs.doc(`users/${user.id}`);
     this.userDoc.delete();
+  }
+
+  updateUsetPoints(distance, user) {
+    this.afs.doc(`users/${user.id}`).update({points: user.points + distance});
   }
 }
