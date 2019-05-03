@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { TableDataService } from '../../../services/table/table-data.service';
 import { Run } from '../../../models/Run';
 import { User } from '../../../models/User';
@@ -33,7 +34,8 @@ export class AddResultComponent implements OnInit {
   };
 
   constructor(private tableDataService: TableDataService,
-    private readonly afs: AngularFirestore) {
+    private readonly afs: AngularFirestore,
+    private snackBar: MatSnackBar) {
     this.usersCollection = afs.collection<User>('users', ref => ref.orderBy('userName', 'asc'));
 
     this.users = this.usersCollection.snapshotChanges().pipe(
@@ -54,7 +56,14 @@ export class AddResultComponent implements OnInit {
   }
 
   onSubmit() {
+    this.openSnackBar('Result added to data base', 'Close');
     this.tableDataService.addRun(this.addResultForm.value);
     this.addResultForm.reset();
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+    });
   }
 }

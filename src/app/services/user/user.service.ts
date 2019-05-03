@@ -5,7 +5,6 @@ import {
   AngularFirestoreDocument
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { User } from '../../models/User';
 export interface UserId extends User { id: string; }
 
@@ -19,8 +18,6 @@ export class UserService {
   userDoc: AngularFirestoreDocument<User>;
 
   constructor(public afs: AngularFirestore) {
-    // we dont see all user because this.usersCollection filters by userName
-    /// and user that come from auth service dont have userName
     this.usersCollection = afs.collection<User>('users', ref => ref.orderBy('userName', 'asc'));
 
     // this.users = this.usersCollection.snapshotChanges().pipe(
@@ -34,6 +31,7 @@ export class UserService {
   }
 
   addUser (user: User) {
+    user.points = 0;
     this.usersCollection.add(user);
   }
 
@@ -47,6 +45,9 @@ export class UserService {
   }
 
   updateUsetPoints(distance, user) {
+    if (distance > 100) {
+      distance = 100;
+    }
     this.afs.doc(`users/${user.id}`).update({points: user.points + distance});
   }
 }
