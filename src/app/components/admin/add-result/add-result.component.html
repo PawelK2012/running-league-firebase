@@ -16,7 +16,7 @@
       <input matInput placeholder="Distance" type="number" formControlName="distance" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Time" type="number" formControlName="time" required>
+      <input matInput placeholder="Time"  type="time" step="2" formControlName="time" required>
     </mat-form-field>
     <button mat-flat-button color="primary" class="float-right" [disabled]="!addResultForm.valid"
       type="submit">Submit</button>
