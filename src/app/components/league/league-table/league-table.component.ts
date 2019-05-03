@@ -5,43 +5,8 @@ import {
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TableDataService } from '../../../services/table/table-data.service';
-import { Item } from '../../../models/Items';
-import { Run } from '../../../models/Run';
-import { MatTableModule, MatSortModule, MatSort } from '@angular/material';
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { position: 11, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 12, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 13, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 14, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 15, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 16, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 17, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 18, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 19, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 20, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { position: 21, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 22, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 23, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 24, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 25, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 26, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 27, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 28, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 29, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 30, name: 'Neon', weight: 20.1797, symbol: 'Ne' }
-];
+import { User } from '../../../models/User';
+import { MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-league-table',
@@ -49,78 +14,29 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./league-table.component.scss']
 })
 export class LeagueTableComponent implements OnInit {
-  itemsCollection: AngularFirestoreCollection<Item>;
-  items: Observable<Item[]>;
+  usersCollection: AngularFirestoreCollection<User>;
+  users: Observable<User[]>;
 
-  runsCollection: AngularFirestoreCollection<Run>;
-  runs: Observable<Run[]>;
-
-  displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns = ['position', 'name', 'points'];
+  dataSource = this.users;
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(
-    // private tableDataService: TableDataService,
-    private readonly afs: AngularFirestore
-  ) {
+  constructor( private readonly afs: AngularFirestore) {
 
-    // this.runsCollection =
-    // this.afs.collection('runs').valueChanges().subscribe(val => console.log(val));
-    // this.xxx = this.afs.collection('runs', ref => ref.where('runName', '==', 'just run'));
-    // console.log(this.xxx);
+    this.usersCollection = afs.collection<User>('users', ref => ref.orderBy('points', 'desc'));
 
-    this.runsCollection = afs.collection<Run>('runs', ref =>
-      ref.orderBy('runName', 'asc')
+    this.users = this.usersCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as User;
+        const id = a.payload.doc.id;
+        const position = a.payload.newIndex + 1;
+        return { id, position, ...data };
+      }))
     );
-    // console.log(this.runsCollection);
-
-    this.runs = this.runsCollection.snapshotChanges().pipe(
-      map(actions =>
-        actions.map(a => {
-          console.log('actions xxx', actions);
-          const data = a.payload.doc.data() as Run;
-          const id = a.payload.doc.id;
-          console.log(id);
-          return { id, ...data };
-        })
-      )
-    );
-
-    // this.runsCollection = afs.collection<Run>('runs', ref =>
-    //   ref.orderBy('runName', 'asc')
-    // );
-    // // console.log(this.runsCollection);
-
-    // this.runs = this.runsCollection.snapshotChanges().pipe(
-    //   map(actions =>
-    //     actions.map(a => {
-    //       console.log('actions', actions);
-    //       const data = a.payload.doc.data() as Run;
-    //       const id = a.payload.doc.id;
-    //       console.log(id);
-    //       return { id, ...data };
-    //     })
-    //   )
-    // );
-
-    // this.itemsCollection = afs.collection<Item>('items', ref =>
-    //   ref.orderBy('title', 'asc')
-    // );
-
-    // this.items = this.itemsCollection.snapshotChanges().pipe(
-    //   map(actions =>
-    //     actions.map(a => {
-    //       const data = a.payload.doc.data() as Item;
-    //       const id = a.payload.doc.id;
-    //       console.log(id);
-    //       return { id, ...data };
-    //     })
-    //   )
-    // );
   }
 
-  ngOnInit() { }
+  ngOnInit() {this.dataSource = this.users;}
 
   deleteResult(item) {
     console.log('delete result');
