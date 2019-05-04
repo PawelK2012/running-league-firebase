@@ -10,3 +10,12 @@
 .flex-direction-column {
   flex-direction: column;
 }
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-justify-content-start {
+  justify-content: flex-start;
+}

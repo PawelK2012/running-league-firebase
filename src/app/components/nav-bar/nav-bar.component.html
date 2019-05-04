@@ -1,12 +1,33 @@
-<div class="top-nav">
-  <img class="logo" routerLink="/" src="http://prci.ie/images/logo_small.png" alt="Polish Runners Club Ireland Logo">
+<nav>
+  <div class="flex-center">
+    <img class="logo" routerLink="/" src="http://prci.ie/images/logo_small.png" alt="Polish Runners Club Ireland Logo">
+  </div>
   <h1>PRCI Running League</h1>
-</div>
-<div class="bottom-nav">
-  <nav>
-  <a routerLink="/login" routerLinkActive="active">Login</a> |
-  <a routerLink="/register" routerLinkActive="active">Register</a> |
-  <a routerLink="/add-result" routerLinkActive="active">Add Run</a> |
-  <a routerLink="/add-user" routerLinkActive="active">Add Runner</a>
+  <div class="menu-container">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/">
+          <mat-icon>home</mat-icon>
+          <span>Home</span>
+        </button>
+      <button mat-menu-item routerLink="/login">
+        <mat-icon>lock_open</mat-icon>
+        <span>Login</span>
+      </button>
+      <button mat-menu-item routerLink="/register">
+        <mat-icon>how_to_reg</mat-icon>
+        <span>Register</span>
+      </button>
+      <button mat-menu-item routerLink="/add-result">
+        <mat-icon>add_circle</mat-icon>
+        <span>Add Result</span>
+      </button>
+      <button mat-menu-item routerLink="/add-user">
+        <mat-icon>person_add</mat-icon>
+        <span>Add User</span>
+      </button>
+    </mat-menu>
+  </div>
 </nav>
-</div>

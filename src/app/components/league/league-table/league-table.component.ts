@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreCollection
@@ -6,7 +6,6 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../../../models/User';
-import { MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-league-table',
@@ -19,8 +18,7 @@ export class LeagueTableComponent implements OnInit {
 
   displayedColumns = ['position', 'name', 'points'];
   dataSource = this.users;
-
-  @ViewChild(MatSort) sort: MatSort;
+  isSpinnerOn = true;
 
   constructor( private readonly afs: AngularFirestore) {
 
@@ -36,18 +34,15 @@ export class LeagueTableComponent implements OnInit {
     );
   }
 
-  ngOnInit() {this.dataSource = this.users;}
+  ngOnInit() {
+    this.dataSource = this.users;
+  }
 
   deleteResult(item) {
     console.log('delete result');
     // this.tableDataService.deleteResult(item);
   }
 }
-
-// export class TableStickyHeaderExample {
-//   displayedColumns = ['position', 'name', 'weight', 'symbol'];
-//   dataSource = ELEMENT_DATA;
-// }
 
 export interface PeriodicElement {
   name: string;
