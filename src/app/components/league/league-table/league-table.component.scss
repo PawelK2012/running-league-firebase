@@ -1,6 +1,35 @@
-.example-container {
+@import '../../../styles/sass/flex-box';
+@import '../../../styles/sass/colors';
+@import '../../../styles/sass/spinner';
+
+.table-header-container {
+  margin-top: 10px;
+  border: 1px solid $border-grey;
+}
+
+.table-container {
   height: 400px;
   overflow: auto;
+  border: 1px solid $border-grey;
+}
+
+.table-header-item {
+  padding: 10px;
+  margin-left: 10px;
+}
+
+.table-header-item > span {
+  display: block;
+}
+.top-item{
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.54);
+}
+.bottom-item {
+  color: $text-blue;
+  font-weight: bold;
+  margin-top: 5px;
+  font-size: 14px;
 }
 
 table {
