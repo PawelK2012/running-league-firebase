@@ -19,7 +19,8 @@ export class AddResultComponent implements OnInit {
     user: new FormControl(''),
     runName: new FormControl(''),
     distance: new FormControl(''),
-    time: new FormControl('')
+    time: new FormControl(''),
+    date: new FormControl(''),
   });
   usersCollection: AngularFirestoreCollection<User>;
   users: Observable<User[]>;

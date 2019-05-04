@@ -20,6 +20,7 @@ export class AddUserComponent implements OnInit {
 
   usersCollection: AngularFirestoreCollection<User>;
   users: Observable<User[]>;
+  numberOfUsers = 0;
 
   user: User = {
     email: '',
@@ -39,6 +40,7 @@ export class AddUserComponent implements OnInit {
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as User;
         const id = a.payload.doc.id;
+        this.numberOfUsers = this.numberOfUsers + 1;
         return { id, ...data };
       }))
     );

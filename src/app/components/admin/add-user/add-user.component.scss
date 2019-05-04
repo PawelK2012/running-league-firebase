@@ -16,3 +16,8 @@ mat-form-field {
 .list-text {
   padding: 0 5px;
 }
+
+.scrollable-container {
+  height: 500px;
+  overflow: scroll;
+}

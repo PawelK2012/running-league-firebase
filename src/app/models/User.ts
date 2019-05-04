@@ -12,4 +12,5 @@ export interface User {
   superAdmin?: boolean;
   listOfRuns?: string[];
   points?: number;
+  totalDistance?: number;
 }

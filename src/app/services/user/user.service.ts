@@ -32,6 +32,7 @@ export class UserService {
 
   addUser (user: User) {
     user.points = 0;
+    user.totalDistance = 0;
     this.usersCollection.add(user);
   }
 
@@ -45,9 +46,17 @@ export class UserService {
   }
 
   updateUsetPoints(distance, user) {
+    this.afs.doc(`users/${user.id}`).update({
+      points: user.points + Math.floor(this.roundDownPointsToo100(distance)),
+      totalDistance: user.totalDistance + distance
+    });
+  }
+
+  roundDownPointsToo100(distance) {
     if (distance > 100) {
-      distance = 100;
+      return distance = 100;
+    } else {
+      return distance;
     }
-    this.afs.doc(`users/${user.id}`).update({points: user.points + distance});
   }
 }
