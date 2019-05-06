@@ -7,7 +7,7 @@
     <button mat-flat-button color="primary" class="float-right" [disabled]="!addUserForm.valid" type="submit">Submit</button>
   </form>
 </div>
-<h2>List of all available({{this.numberOfUsers}}) runners:</h2>
+<h3>List of all available({{this.numberOfUsers}}) runners:</h3>
 <mat-list class="scrollable-container">
   <mat-list-item *ngFor="let user of this.users | async">User: <strong class="list-text">{{ user.userName }}</strong>
     <mat-icon class="icon-to-right" (click)="deleteUser(user)">delete</mat-icon>

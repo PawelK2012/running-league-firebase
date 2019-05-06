@@ -5,8 +5,6 @@ import {
   AngularFirestoreDocument
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-// import { map } from 'rxjs/operators';
-import { Item } from '../../models/Items';
 import { Run } from '../../models/Run';
 import { UserService } from '../../services/user/user.service';
 
@@ -17,12 +15,10 @@ export class TableDataService {
 
   runsCollection: AngularFirestoreCollection<Run>;
   runs: Observable<Run[]>;
-  run: AngularFirestoreDocument<Run>;
+  runDoc: AngularFirestoreDocument<Run>;
 
   constructor(public afs: AngularFirestore,
               public userService: UserService) {
-
-    // this.itemsCollection = afs.collection<Item>('items', ref => ref.orderBy('title', 'asc'));
     this.runsCollection = afs.collection<Run>('runs', ref => ref.orderBy('userName', 'asc'));
 
     // this.items = this.itemsCollection.snapshotChanges().pipe(
@@ -40,14 +36,14 @@ export class TableDataService {
   }
 
   addRun (run: Run) {
-    console.log(run);
-    this.userService.updateUsetPoints(run.distance, run.user  );
+    this.userService.updateUsetPoints(run.distance, run.user);
     this.runsCollection.add(run);
   }
 
   deleteRun(run: Run) {
-    // this.itemDoc = this.afs.doc(`items/${item.id}`);
-    // this.itemDoc.delete();
+    this.runDoc = this.afs.doc(`runs/${run.id}`);
+    this.runDoc.delete();
+    this.userService.extractUserPoints(run);
   }
 
 //   getItems(): Observable<any[]> {

@@ -33,7 +33,7 @@
 
     <ng-container matColumnDef="totalDistance">
         <th mat-header-cell *matHeaderCellDef> Całkowity Dystans </th>
-        <td mat-cell *matCellDef="let element"> {{element.totalDistance}} </td>
+        <td mat-cell *matCellDef="let element">{{ element.totalDistance | number : '1.2-2'}}</td>
       </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

@@ -24,7 +24,8 @@ export class AddResultComponent implements OnInit {
   });
   usersCollection: AngularFirestoreCollection<User>;
   users: Observable<User[]>;
-
+  runsCollection: AngularFirestoreCollection<Run>;
+  runs: Observable<Run[]>;
   run: Run = {
     id: '',
     runName: '',
@@ -33,16 +34,26 @@ export class AddResultComponent implements OnInit {
     date: '',
     user: []
   };
+  numberOfRuns = 0;
 
   constructor(private tableDataService: TableDataService,
     private readonly afs: AngularFirestore,
     private snackBar: MatSnackBar) {
     this.usersCollection = afs.collection<User>('users', ref => ref.orderBy('userName', 'asc'));
-
     this.users = this.usersCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as User;
         const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
+
+    this.runsCollection = afs.collection<Run>('runs', ref => ref.orderBy('date', 'desc'));
+    this.runs = this.runsCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Run;
+        const id = a.payload.doc.id;
+        this.numberOfRuns = this.numberOfRuns + 1;
         return { id, ...data };
       }))
     );
@@ -66,5 +77,13 @@ export class AddResultComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 5000,
     });
+  }
+
+  deleteRun(run: Run) {
+    const response = confirm('Are you sure you want to delete this run?');
+    if (response) {
+      this.tableDataService.deleteRun(run);
+    }
+    return;
   }
 }
