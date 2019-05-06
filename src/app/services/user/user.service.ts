@@ -6,7 +6,6 @@ import {
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../../models/User';
-export interface UserId extends User { id: string; }
 
 @Injectable({
   providedIn: 'root'
@@ -52,11 +51,45 @@ export class UserService {
     });
   }
 
+  extractUserPoints(run) {
+    const userData = this.getUserById(run.user.id);
+    userData.then(resol =>
+        this.afs.doc(`users/${run.user.id}`).update({
+        points: resol['points'] - Math.floor(this.roundDownPointsToo100(run.distance)),
+        totalDistance: resol['totalDistance'] - run.distance
+      })
+    );
+  }
+
   roundDownPointsToo100(distance) {
     if (distance > 100) {
       return distance = 100;
     } else {
       return distance;
     }
+  }
+
+  // getUserById(userId) {
+  //   this.afs.doc(`users/${userId}`).ref.get().then(function(doc) {
+  //     if (doc.exists) {
+  //       // console.log('Document data:', doc.data());
+  //       // const data = doc.data();
+  //       // console.log(data.points);
+  //      return doc.data();
+  //     } else {
+  //       console.log('No such document!');
+  //     }
+  //   }).catch(function(error) {
+  //     console.log('Error getting document:', error);
+  //   });
+  // }
+
+  getUserById(userId) {
+    return new Promise((resolve, reject) => {
+      this.afs.doc(`users/${userId}`).ref.get().then(function (doc) {
+        if (doc.exists) {
+          resolve(doc.data());
+        }});
+    });
   }
 }
