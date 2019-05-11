@@ -44,17 +44,20 @@ export class AuthService {
 
   signOut() {
     this.afAuth.auth.signOut();
+   //  this.afAuth.authState.
+   // this.afAuth.auth().cu;
   }
 
   public updateUserData(user) {
     // old ref `users/${user.user.uid}`
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.user.uid}`
+      `admin-users/${user.user.uid}`
     );
     const data: User = {
-      // id: user.user.uid,
+      id: user.user.uid,
+      userName: user.user.displayName,
       email: user.user.email,
-      roles: 'subscriber'
+      // roles: 'subscriber'
       // roles: {
       //   // subscriber: true
       //   subscriber: true

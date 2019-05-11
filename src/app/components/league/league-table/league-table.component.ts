@@ -6,6 +6,8 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../../../models/User';
+import { Router } from '@angular/router';
+import { UserService } from '../../../services/user/user.service';
 
 @Component({
   selector: 'app-league-table',
@@ -21,7 +23,9 @@ export class LeagueTableComponent implements OnInit {
   isSpinnerOn = true;
   numberOfUsers = 0;
 
-  constructor( private readonly afs: AngularFirestore) {
+  constructor( private readonly afs: AngularFirestore,
+    private router: Router,
+    private userService: UserService) {
 
     this.usersCollection = afs.collection<User>('users', ref => ref.orderBy('points', 'desc'));
 
@@ -40,9 +44,9 @@ export class LeagueTableComponent implements OnInit {
     this.dataSource = this.users;
   }
 
-  deleteResult(item) {
-    console.log('delete result');
-    // this.tableDataService.deleteResult(item);
+  setUserDetails(x, y) {
+    this.router.navigate(['/view-user-runs']);
+    this.userService.setUserToView([x, y]);
   }
 }
 

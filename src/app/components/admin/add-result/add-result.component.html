@@ -25,9 +25,7 @@
       type="submit">Submit</button>
   </form>
 </div>
-<!-- <ul>
-  <li *ngFor="let user of users | async">{{user.userName}}</li>
-</ul> -->
+
 <h3>List of all available results ({{this.numberOfRuns}})</h3>
 <mat-list class="scrollable-container">
   <mat-list-item *ngFor="let run of this.runs | async">

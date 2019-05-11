@@ -24,6 +24,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material';
+import { AllRunsForSingleUserComponent } from './components/league/all-runs-for-single-user/all-runs-for-single-user.component';
 
 
 const appRoutes: Routes = [
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
   { path: 'add-result', component: AddResultComponent },
   { path: 'league-table', component: LeagueTableComponent },
   { path: 'add-user', component: AddUserComponent },
+  { path: 'view-user-runs', component: AllRunsForSingleUserComponent },
   { path: '', redirectTo: '/league-table', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -46,7 +48,8 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     LeagueTableComponent,
     NavBarComponent,
-    AddUserComponent
+    AddUserComponent,
+    AllRunsForSingleUserComponent
   ],
   imports: [
     BrowserModule,
