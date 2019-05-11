@@ -1,3 +1,5 @@
+@import '../../styles/sass/colors';
+
 .float-right {
   float: right;
 }
@@ -19,3 +21,10 @@
   padding: 0 5px;
 }
 
+.cursor {
+  cursor: pointer;
+}
+
+.cursor:hover, .cursor:visited {
+  color: $text-blue;
+}

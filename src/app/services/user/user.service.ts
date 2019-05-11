@@ -15,6 +15,7 @@ export class UserService {
   usersCollection: AngularFirestoreCollection<User>;
   users: Observable<User[]>;
   userDoc: AngularFirestoreDocument<User>;
+  private userToBeViewed: any = null;
 
   constructor(public afs: AngularFirestore) {
     this.usersCollection = afs.collection<User>('users', ref => ref.orderBy('userName', 'asc'));
@@ -67,6 +68,14 @@ export class UserService {
     } else {
       return distance;
     }
+  }
+
+  setUserToView(data) {
+    this.userToBeViewed = data;
+  }
+
+  getUserToView() {
+    return this.userToBeViewed;
   }
 
   // getUserById(userId) {
