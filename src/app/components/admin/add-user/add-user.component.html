@@ -1,5 +1,5 @@
 <div class="add-user-container">
-  <h2>Add new runner</h2>
+  <h2>{{ 'strings.addNewRunner' | translate }}</h2>
   <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <input matInput placeholder="User Name" formControlName="userName" required>
@@ -7,10 +7,10 @@
     <button mat-flat-button color="primary" class="float-right" [disabled]="!addUserForm.valid" type="submit">Submit</button>
   </form>
 </div>
-<h3>List of all available({{this.numberOfUsers}}) runners:</h3>
+<h3>{{ 'strings.listOfAllUsers' | translate }}({{this.numberOfUsers}}) {{ 'strings.runners' | translate }}:</h3>
 <mat-list class="scrollable-container">
-  <mat-list-item *ngFor="let user of this.users | async">User: <strong class="list-text">{{ user.userName }}</strong>
-    <mat-icon class="icon-to-right" (click)="deleteUser(user)">delete</mat-icon>
+  <mat-list-item *ngFor="let user of this.users | async"><strong class="list-text">{{ user.userName }}</strong>
+    <mat-icon class="icon-to-right" (click)="deleteUser(user)">{{ 'strings.delete' | translate }}</mat-icon>
     <mat-divider></mat-divider>
   </mat-list-item>
 </mat-list>
