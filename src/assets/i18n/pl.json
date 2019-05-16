@@ -1,0 +1,26 @@
+{
+  "strings": {
+    "league": "Liga",
+    "season": "Sezon",
+    "noOfAthletes": "Liczba uczestników",
+    "position": "Pozycja",
+    "nameSurname": "Imię i Nazwisko",
+    "points": "Punkty",
+    "totalDistance": "Całkowity Dystans",
+    "allRunsFor": "Wszystkie biegi",
+    "distance": "Dystans",
+    "time": "Czas",
+    "date": "Data",
+    "event": "Bieg",
+    "km": "KM",
+    "addNewRunner": "Dodaj nowego uczestnika",
+    "listOfAllUsers": "Lista wszystkich",
+    "listOfAllAvaResults": "Lista wszystkig biegów ",
+    "runners": "biegaczy",
+    "user": "Uczestnik",
+    "delete": "kasuj",
+    "addNewresultToUser": "Dodaj nowy bieg do uczestnika",
+    "selectUser": "Wybierz uczestnika",
+    "submit": "Submit"
+  }
+}

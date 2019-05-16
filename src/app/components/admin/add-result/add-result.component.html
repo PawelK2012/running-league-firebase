@@ -1,8 +1,8 @@
 <div class="add-result-container">
-  <h2>Add new result to the runner</h2>
+  <h2>{{ 'strings.addNewresultToUser' | translate }}</h2>
   <form [formGroup]="addResultForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
-      <mat-label>Select User</mat-label>
+      <mat-label>{{ 'strings.selectUser' | translate }}</mat-label>
       <mat-select formControlName="user">
         <mat-option *ngFor="let user of users | async" [value]="user">
           {{user.userName}}
@@ -22,19 +22,19 @@
         <input matInput placeholder="Date"  type="date" formControlName="date" required>
       </mat-form-field>
     <button mat-flat-button color="primary" class="float-right" [disabled]="!addResultForm.valid"
-      type="submit">Submit</button>
+      type="submit">{{ 'strings.submit' | translate }}</button>
   </form>
 </div>
 
-<h3>List of all available results ({{this.numberOfRuns}})</h3>
+<h3>{{ 'strings.listOfAllAvaResults' | translate }} ({{this.numberOfRuns}})</h3>
 <mat-list class="scrollable-container">
   <mat-list-item *ngFor="let run of this.runs | async">
     <strong class="list-text">{{ run.user.userName }}</strong>
-    Event: <strong class="list-text">{{ run.runName }}</strong>
-    Time: <strong class="list-text">{{ run.time }}</strong>
-    Distance: <strong class="list-text">{{ run.distance }}</strong>
-    Date: <strong class="list-text">{{ run.date }}</strong>
-    <mat-icon class="icon-to-right" (click)="deleteRun(run)">delete</mat-icon>
+    {{ 'strings.event' | translate }}: <strong class="list-text">{{ run.runName }}</strong>
+    {{ 'strings.time' | translate }}: <strong class="list-text">{{ run.time }}</strong>
+    {{ 'strings.distance' | translate }}: <strong class="list-text">{{ run.distance }}</strong>
+    {{ 'strings.date' | translate }}: <strong class="list-text">{{ run.date }}</strong>
+    <mat-icon class="icon-to-right" (click)="deleteRun(run)">{{ 'strings.delete' | translate }}</mat-icon>
     <mat-divider></mat-divider>
   </mat-list-item>
 </mat-list>

@@ -1,0 +1,26 @@
+{
+  "strings": {
+    "league": "League",
+    "season": "Season",
+    "noOfAthletes": "Number of Athletes",
+    "position": "Position",
+    "nameSurname": "Name and Surname",
+    "points": "Points",
+    "totalDistance": "Total distance",
+    "allRunsFor": "All runs for",
+    "distance": "Distance",
+    "time": "Time",
+    "date": "Date",
+    "event": "Event",
+    "km": "KM",
+    "addNewRunner": "Add new runner",
+    "listOfAllUsers": "List of all available",
+    "listOfAllAvaResults": "List of all available results ",
+    "runners": "runners",
+    "user": "User",
+    "delete": "delete",
+    "addNewresultToUser": "Add new result to the runner",
+    "selectUser": "Select User",
+    "submit": "Submit"
+  }
+}
